@@ -1,17 +1,38 @@
-From a7aca7d5f7def241bbf6143a42e4a90101a97912 Mon Sep 17 00:00:00 2001
+From 829f70d25093edf7667f2fb49adf5a73a2468803 Mon Sep 17 00:00:00 2001
 From: "Re*Index. (ot_inc)" <32851879+reindex-ot@users.noreply.github.com>
 Date: Thu, 25 May 2023 21:21:15 +0900
 Subject: [PATCH 3/3] res: Add support for Japanese (#1)
 
+Update Japanese Strings. (#4)
+
+* res: Support multiple languages
+
+Migrate all descriptions to strings.xml
+
+Signed-off-by: xiaoleGun <1592501605@qq.com>
+
+* res: Add support for simplified Chinese
+
+Signed-off-by: xiaoleGun <1592501605@qq.com>
+
+* res: Add support for Japanese (#1)
+
+* Update Japanese Strings.
+
+Update Japanese.
+
+---------
+
+Signed-off-by: xiaoleGun <1592501605@qq.com>
 ---
  app/src/main/res/values-ja/pref_custom.xml  |  39 +++++
  app/src/main/res/values-ja/pref_huawei.xml  |  13 ++
- app/src/main/res/values-ja/pref_misc.xml    |  75 +++++++++
+ app/src/main/res/values-ja/pref_misc.xml    |  65 ++++++++
  app/src/main/res/values-ja/pref_nubia.xml   |  74 +++++++++
  app/src/main/res/values-ja/pref_oneplus.xml |  29 ++++
  app/src/main/res/values-ja/pref_samsung.xml |  17 ++
- app/src/main/res/values-ja/strings.xml      | 167 ++++++++++++++++++++
- 7 files changed, 414 insertions(+)
+ app/src/main/res/values-ja/strings.xml      | 173 ++++++++++++++++++++
+ 7 files changed, 410 insertions(+)
  create mode 100644 app/src/main/res/values-ja/pref_custom.xml
  create mode 100644 app/src/main/res/values-ja/pref_huawei.xml
  create mode 100644 app/src/main/res/values-ja/pref_misc.xml
@@ -86,10 +107,10 @@ index 0000000..e648acf
 +</resources>
 diff --git a/app/src/main/res/values-ja/pref_misc.xml b/app/src/main/res/values-ja/pref_misc.xml
 new file mode 100644
-index 0000000..f94d309
+index 0000000..736feb7
 --- /dev/null
 +++ b/app/src/main/res/values-ja/pref_misc.xml
-@@ -0,0 +1,75 @@
+@@ -0,0 +1,65 @@
 +<?xml version="1.0" encoding="utf-8"?>
 +<resources>
 +  <array name="pref_misc_mobile_signal">
@@ -105,16 +126,6 @@ index 0000000..f94d309
 +    <item>rssi</item>
 +    <item>rsrp</item>
 +    <item>rssnr</item>
-+  </array>
-+  <array name="pref_misc_fps_divisor">
-+    <item>"1 (デフォルト)"</item>
-+    <item>"2"</item>
-+    <item>"3"</item>
-+  </array>
-+  <array name="pref_misc_fps_divisor_values">
-+    <item>"1"</item>
-+    <item>"2"</item>
-+    <item>"3"</item>
 +  </array>
 +  <array name="pref_misc_max_aspect_ratio_pre_o">
 +    <item>"1.86 (デフォルト)"</item>
@@ -305,10 +316,10 @@ index 0000000..0c7b9d0
 +</resources>
 diff --git a/app/src/main/res/values-ja/strings.xml b/app/src/main/res/values-ja/strings.xml
 new file mode 100644
-index 0000000..7444c87
+index 0000000..49e21d8
 --- /dev/null
 +++ b/app/src/main/res/values-ja/strings.xml
-@@ -0,0 +1,167 @@
+@@ -0,0 +1,173 @@
 +<?xml version="1.0" encoding="utf-8"?>
 +<resources>
 +  <string name="app_name">PhhTrebleApp</string>
@@ -350,16 +361,16 @@ index 0000000..7444c87
 +  <string name="custom_font_family">フォントファミリー</string>
 +  <!-- Doze -->
 +  <string name="doze">Doze</string>
-+  <string name="doze_handwave">ハンドウェーブジェスチャーを有効化</string>
-+  <string name="doze_pocket">ポケット取り出し時のジェスチャーを有効化</string>
++  <string name="doze_handwave">ハンドウェーブジェスチャーを有効化する</string>
++  <string name="doze_pocket">ポケット取り出し時のジェスチャーを有効化する</string>
 +  <!-- General -->
 +  <string name="general_audio">オーディオ</string>
 +  <string name="general_camera">カメラ</string>
 +  <string name="general_display">画面</string>
-+  <string name="general_enable_dt2w">ダブルタップで点灯を有効化</string>
-+  <string name="general_double_tap_to_wake">ダブルタップで点灯を有効化</string>
-+  <string name="general_game_mode">ゲームモードを有効化</string>
-+  <string name="general_usb_otg">USB OTG を有効化</string>
++  <string name="general_enable_dt2w">ダブルタップで点灯を有効化する</string>
++  <string name="general_double_tap_to_wake">ダブルタップで点灯を有効化する</string>
++  <string name="general_game_mode">ゲームモードを有効化する</string>
++  <string name="general_usb_otg">USB OTG を有効化する</string>
 +  <string name="general_misc">その他</string>
 +  <string name="general_other">その他</string>
 +  <string name="general_requires_a_reboot">再起動が必要です</string>
@@ -384,12 +395,11 @@ index 0000000..7444c87
 +  <string name="updater">アップデータ</string>
 +  <!-- Huawei -->
 +  <string name="huawei_fingerprint">指紋認証</string>
-+  <string name="huawei_fingerprint_gestures">指紋認証ジェスチャーを有効化</string>
-+  <string name="huawei_touchscreen_glove_mode">手袋モードを有効化</string>
++  <string name="huawei_fingerprint_gestures">指紋認証ジェスチャーを有効化する</string>
 +  <string name="huawei_graphic_issues_workaround">グラフィックの問題を回避する (画面がぼやけてしまう場合に推奨します)</string>
 +  <string name="huawei_fast_charge">Huawei の高速充電</string>
 +  <!-- IMS -->
-+  <string name="ims_create_apn">IMS APN を作成</string>
++  <string name="ims_create_apn">IMS APN を作成する</string>
 +  <string name="ims_install_apn">IMS APK をダウンロードとインストール</string>
 +  <string name="ims_request_network">IMS ネットワークをリクエスト</string>
 +  <string name="ims_force_enable_setting">VoLTE の設定を強制する</string>
@@ -399,42 +409,52 @@ index 0000000..7444c87
 +  <string name="misc_mobile_signal">信号メーターの方式</string>
 +  <string name="misc_huawei_headset_fix">ヘッドセットスイッチを強制する (Huawei のデフォルト)</string>
 +  <string name="misc_headset_devinput">代替のヘッドセット検出方法を使用する</string>
-+  <string name="misc_disable_audio_effects">オーディオエフェクトを無効化</string>
-+  <string name="misc_rounded_corners">丸い角の直径を設定</string>
-+  <string name="misc_rounded_corners_overlay">強制または偽装された丸い角の直径を設定</string>
-+  <string name="misc_fps_divisor">FPS 除数</string>
-+  <string name="misc_display_fps">FPS を強制</string>
-+  <string name="misc_restart_systemui">System UI を再起動</string>
++  <string name="misc_disable_audio_effects">オーディオエフェクトを無効化する</string>
++  <string name="misc_disable_fast_audio">fast audio を無効化する</string>
++  <string name="misc_rounded_corners">丸い角の直径を設定する</string>
++  <string name="misc_rounded_corners_overlay">強制または偽装された丸い角の直径を設定する</string>
++  <string name="misc_display_fps">FPS を強制する</string>
++  <string name="misc_restart_systemui">System UI を再起動する</string>
 +  <string name="misc_restart_systemui_summary">画面の解像度の変更後に行なう事を推奨します\nRoot 権限が必要です</string>
-+  <string name="misc_no_hwcomposer">HW オーバーレイを無効化</string>
++  <string name="misc_no_hwcomposer">HW オーバーレイを無効化する</string>
 +  <string name="misc_no_hwcomposer_summary">CPU とバッテリーをより多く消費します</string>
 +  <string name="misc_aod">常時表示画面を強制する</string>
++  <string name="misc_mediatek_touch_hint_rotate">タッチの代わりに回転パフォーマンスのヒントを表示する</string>
++  <string name="misc_mediatek_touch_hint_rotate_summary">MediaTek のデバイス向け</string>
 +  <string name="misc_backlight">バックライト</string>
++  <string name="misc_low_gamma_brightness">代替の輝度カーブを設定する</string>
 +  <string name="misc_linear_brightness">リニアスクリーンの輝度スライダーを使用する</string>
 +  <string name="misc_disable_buttons_backlight">ハードウェアボタンのバックライトがある場合は無効化する</string>
 +  <string name="misc_backlight_scale">代替のバックライトスケールを強制使用する</string>
 +  <string name="misc_minimal_brightness">輝度を最低に設定できるようにする</string>
 +  <string name="misc_multi_camera">Aux カメラを露出</string>
-+  <string name="misc_force_camera2api_hal3">Camera2API HAL3 を強制的に有効化</string>
-+  <string name="misc_camera_timestamp">タイムスタンプソースを強制</string>
++  <string name="misc_force_camera2api_hal3">Camera2API HAL3 を強制的に有効化する</string>
++  <string name="misc_camera_timestamp">タイムスタンプソースを強制する</string>
 +  <string name="misc_bluetooth">Bluetooth の問題を回避</string>
++  <string name="misc_bluetooth_workarounds">Bluetooth の問題回避策</string>
 +  <string name="misc_max_aspect_ratio_pre_o">互換性のある最大アスペクト比</string>
 +  <string name="misc_dynamic_sysbta">システム全体の Bluetooth HAL を使用する</string>
-+  <string name="misc_force_navbar_off">強制的にナビゲーションバーを無効化</string>
-+  <string name="misc_storage_fuse">FUSE ストレージレイヤーを無効化</string>
++  <string name="misc_allow_binder_thread_on_incoming_calls">着信時にバインダー化されたスレッドを許可する</string>
++  <string name="misc_allow_binder_thread_on_incoming_calls_summary">4G 通話の問題回避策です\n再起動が必要です</string>
++  <string name="misc_force_navbar_off">強制的にナビゲーションバーを無効化する</string>
++  <string name="misc_storage_fuse">FUSE ストレージレイヤーを無効化する</string>
 +  <string name="misc_storage_fuse_summary">ストレージの速度が低下する可能性があります\n再起動が必要です</string>
-+  <string name="misc_restart_ril">RIL を自動で再起動</string>
-+  <string name="misc_dt2w">ダブルタップで点灯</string>
++  <string name="misc_restart_ril">RIL を自動で再起動する</string>
++  <string name="misc_force_display_5g">5G ネットワークを強制表示する</string>
++  <string name="misc_force_display_5g_summary">優先ネットワークのオプションに 5G を表示します\n再起動が必要です</string>
++  <string name="misc_disable_voice_call_in">音声通話のルートを無効化する</string>
++  <string name="misc_disable_voice_call_in_summary">通話中のエコーや音声の不具合を修正できる可能性があります\n再起動が必要です</string>
++  <string name="misc_dt2w">ダブルタップで点灯する</string>
 +  <string name="misc_dt2w_summary">機能が動作する可能性は低いです</string>
 +  <string name="misc_fod_color">アンダーディスプレイ FP カラー</string>
-+  <string name="misc_securize">セキュアライズ</string>
++  <string name="misc_securize">セキュライズ</string>
 +  <string name="misc_debugging">デバッグ</string>
 +  <string name="misc_debug_sensors">センサーのデバッグ</string>
-+  <string name="misc_remotectl">デバッグのために phh によるデバイスの占有を許可</string>
++  <string name="misc_remotectl">デバッグのために phh によるデバイスの占有を許可する</string>
 +  <!-- My device -->
 +  <string name="mydevice_maintainer">マイデバイスのメンテナ</string>
 +  <string name="mydevice_telegram_group">デバイスの Telegram グループ</string>
-+  <string name="mydevice_apply_presets">プリセットを適用</string>
++  <string name="mydevice_apply_presets">プリセットを適用する</string>
 +  <!-- Nubia -->
 +  <string name="nubia_fan_speed">ファンの速度</string>
 +  <string name="nubia_redmagic_logo_breath">RedMagic ロゴをブレスさせる</string>
@@ -448,34 +468,31 @@ index 0000000..7444c87
 +  <string name="oneplus_display_mode">画面モード</string>
 +  <string name="oneplus_display_high_brightness">高輝度モード</string>
 +  <!-- OPPO -->
-+  <string name="oppo_dc_diming">DC 調光を有効化</string>
++  <string name="oppo_dc_diming">DC 調光を有効化する</string>
 +  <!-- Qualcomm -->
 +  <string name="qualcomm_alternate_mediaprofile">代替のカメラプロファイルを使用する</string>
-+  <string name="qualcomm_disable_soundvolume_effect">サウンドボリュームエフェクトを無効化</string>
++  <string name="qualcomm_disable_soundvolume_effect">サウンドボリュームエフェクトを無効化する</string>
 +  <string name="qualcomm_disable_soundvolume_effect_summary">音の乱れが修正できる場合があります</string>
-+  <string name="qualcomm_disable_stereo_voip">VoIP のステレオ対応を無効化</string>
++  <string name="qualcomm_disable_stereo_voip">VoIP のステレオ対応を無効化する</string>
 +  <string name="qualcomm_disable_stereo_voip_summary">高音の音声を修正できる場合があります。再起動が必要です</string>
 +  <!-- Samsung -->
-+  <string name="samsung_audio_stereo">ステレオオーディオモードを有効化</string>
-+  <string name="samsung_disable_back_mic">内蔵バックマイクを無効化</string>
++  <string name="samsung_audio_stereo">ステレオオーディオモードを有効化する</string>
++  <string name="samsung_disable_back_mic">内蔵バックマイクを無効化する</string>
 +  <string name="samsung_disable_back_mic_summary">動画撮影時のマイク音の異常を修正できます</string>
-+  <string name="samsung_esco_transport_unit_size">eSCO トランスポートユニットサイズを設定</string>
-+  <string name="samsung_high_brightness">輝度範囲の拡張を有効化</string>
-+  <string name="samsung_glove_mode">手袋モードを有効化</string>
-+  <string name="samsung_wireless_charging_transmit">リバースワイヤレス充電を有効化 (該当する場合)</string>
-+  <string name="samsung_fod_single_click">指紋センサーをクリックで画面を点灯</string>
-+  <string name="samsung_flash_strength">フラッシュの強さを設定</string>
++  <string name="samsung_esco_transport_unit_size">eSCO トランスポートユニットサイズを設定する</string>
++  <string name="samsung_high_brightness">輝度範囲の拡張を有効化する</string>
++  <string name="samsung_wireless_charging_transmit">リバースワイヤレス充電を有効化する (該当する場合)</string>
++  <string name="samsung_fod_single_click">指紋センサーをクリックで画面を点灯する</string>
++  <string name="samsung_flash_strength">フラッシュの強さを設定する</string>
 +  <string name="samsung_flash_strength_summary">値は 1～5 の整数値になります</string>
 +  <string name="samsung_camera_ids">すべてのカメラをアクセス可能にする</string>
 +  <string name="samsung_camera_ids_summary">Q vendor が必要です</string>
 +  <string name="samsung_workarounds">問題の回避</string>
-+  <string name="samsung_extra_sensors">追加のセンサーを有効化</string>
-+  <string name="samsung_colorspace">画面が白っぽく表示される問題の回避を有効化</string>
-+  <string name="samsung_broken_fingerprint">壊れた指紋認証の問題の回避を有効化</string>
-+  <string name="samsung_backlight_multiplier">バックライトスケール、レベルの最大値を設定</string>
-+  <!-- Xiaomi -->
-+  <string name="xiaomi_disable_sunlight_mode">太陽光スクリーンを無効化</string>
++  <string name="samsung_extra_sensors">追加のセンサーを有効化する</string>
++  <string name="samsung_colorspace">画面が白っぽく表示される問題の回避を有効化する</string>
++  <string name="samsung_broken_fingerprint">壊れた指紋認証の問題の回避を有効化する</string>
++  <string name="samsung_backlight_multiplier">バックライトスケール、レベルの最大値を設定する</string>
 +</resources>
 -- 
-2.41.0
+2.39.3 (Apple Git-145)
 
