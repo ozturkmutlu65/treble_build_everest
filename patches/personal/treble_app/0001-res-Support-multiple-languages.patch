@@ -1,4 +1,4 @@
-From f3f0c46026edd43dbe4df8c6df1ba4e541db7560 Mon Sep 17 00:00:00 2001
+From 670fb1e6e8d6d32fe6a224704e17b9f111d11d07 Mon Sep 17 00:00:00 2001
 From: xiaoleGun <1592501605@qq.com>
 Date: Tue, 8 Feb 2022 16:40:33 +0800
 Subject: [PATCH 1/3] res: Support multiple languages
@@ -15,20 +15,20 @@ Signed-off-by: xiaoleGun <1592501605@qq.com>
  app/src/main/res/xml/pref_huawei.xml    |  14 +-
  app/src/main/res/xml/pref_ims.xml       |   8 +-
  app/src/main/res/xml/pref_lenovo.xml    |   4 +-
- app/src/main/res/xml/pref_misc.xml      | 120 ++++++++---------
+ app/src/main/res/xml/pref_misc.xml      | 124 ++++++++---------
  app/src/main/res/xml/pref_mydevice.xml  |   6 +-
  app/src/main/res/xml/pref_nubia.xml     |  52 ++++----
  app/src/main/res/xml/pref_oneplus.xml   |  12 +-
  app/src/main/res/xml/pref_oppo.xml      |  12 +-
  app/src/main/res/xml/pref_qualcomm.xml  |  14 +-
- app/src/main/res/xml/pref_samsung.xml   |  44 +++---
+ app/src/main/res/xml/pref_samsung.xml   |  42 +++---
  app/src/main/res/xml/pref_transsion.xml |   8 +-
  app/src/main/res/xml/pref_vsmart.xml    |   4 +-
  app/src/main/res/xml/pref_xiaomi.xml    |   5 +-
- 18 files changed, 359 insertions(+), 189 deletions(-)
+ 18 files changed, 360 insertions(+), 190 deletions(-)
 
 diff --git a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml
-index d6f6e83..96229e5 100644
+index d6f6e83..d6e8ab5 100644
 --- a/app/src/main/res/values/strings.xml
 +++ b/app/src/main/res/values/strings.xml
 @@ -27,4 +27,173 @@
@@ -119,6 +119,7 @@ index d6f6e83..96229e5 100644
 +    <string name="misc_mediatek_ged_kpi_summary">Might improve GPU performance for Mediatek devices</string>
 +    <string name="misc_disable_sf_gl_backpressure">Disable SF GL backpressure</string>
 +    <string name="misc_disable_sf_gl_backpressure_summary">Might improve rendering performance\nRequires reboot</string>
++    <string name="misc_max_aspect_ratio_pre_o">Compatibility max aspect ratio</string>
 +    <string name="misc_backlight">Backlight</string>
 +    <string name="misc_low_gamma_brightness">Set alternative brightness curve</string>
 +    <string name="misc_linear_brightness">Set linear brightness curve</string>
@@ -129,9 +130,9 @@ index d6f6e83..96229e5 100644
 +    <string name="misc_force_camera2api_hal3">Force Enable Camera2API HAL3</string>
 +    <string name="misc_camera_timestamp">Force Timestamp Source</string>
 +    <string name="misc_bluetooth">Bluetooth</string>
-+    <string name="misc_bluetooth_workarounds">Bluetooth workarounds</string>
-+    <string name="misc_max_aspect_ratio_pre_o">Compatibility max aspect ratio</string>
 +    <string name="misc_dynamic_sysbta">Use System Wide BT HAL</string>
++    <string name="misc_bluetooth_workarounds">Bluetooth workarounds</string>
++    <string name="misc_esco_transport_unit_size">Set eSCO transport unit size</string>
 +    <string name="misc_allow_binder_thread_on_incoming_calls">Allow binder thread on incoming calls</string>
 +    <string name="misc_allow_binder_thread_on_incoming_calls_summary">Possible workaround for 4G calling\nRequires a reboot</string>
 +    <string name="misc_force_navbar_off">Force navigation bar disabled</string>
@@ -191,7 +192,6 @@ index d6f6e83..96229e5 100644
 +    <string name="samsung_audio_stereo">Enable stereo audio mode</string>
 +    <string name="samsung_disable_back_mic">Disable Built-In Back Mic</string>
 +    <string name="samsung_disable_back_mic_summary">May fix broken mic on video recording</string>
-+    <string name="samsung_esco_transport_unit_size">Set eSCO transport unit size</string>
 +    <string name="samsung_high_brightness">Enable extended brightness range</string>
 +    <string name="samsung_wireless_charging_transmit">Enable reversed wireless charging(If applicable)</string>
 +    <string name="samsung_fod_single_click">Clicking fingerprint turns device on</string>
@@ -497,76 +497,76 @@ index e22cfa5..9ff49cd 100644
      </PreferenceCategory>
  </PreferenceScreen>
 diff --git a/app/src/main/res/xml/pref_misc.xml b/app/src/main/res/xml/pref_misc.xml
-index ef1f593..47786bf 100644
+index e41659d..7e09128 100644
 --- a/app/src/main/res/xml/pref_misc.xml
 +++ b/app/src/main/res/xml/pref_misc.xml
-@@ -1,197 +1,197 @@
+@@ -1,203 +1,203 @@
  <?xml version="1.0" encoding="utf-8"?>
  <PreferenceScreen
- 	xmlns:android="http://schemas.android.com/apk/res/android">
--	<Preference android:title="Sponsor phh"
-+	<Preference android:title="@string/misc_sponsor"
+     xmlns:android="http://schemas.android.com/apk/res/android">
+-    <Preference android:title="Sponsor phh"
++    <Preference android:title="@string/misc_sponsor"
          android:key="key_sponsor">
- 		<intent
- 		    android:action="android.intent.action.VIEW"
- 		    android:data="https://github.com/sponsors/phhusson/" />
- 	</Preference>
--	<PreferenceCategory android:title="Mobile network">
-+	<PreferenceCategory android:title="@string/misc_mobile_network">
- 		<ListPreference
- 		    android:defaultValue="default"
- 		    android:entries="@array/pref_misc_mobile_signal"
- 		    android:entryValues="@array/pref_misc_mobile_signal_values"
- 		    android:key="key_misc_mobile_signal"
--		    android:title="Signal meter method" />
-+		    android:title="@string/misc_mobile_signal" />
- 	</PreferenceCategory>
--	<PreferenceCategory android:title="Audio">
-+	<PreferenceCategory android:title="@string/general_audio">
- 		<SwitchPreference
+         <intent
+             android:action="android.intent.action.VIEW"
+             android:data="https://github.com/sponsors/phhusson/" />
+     </Preference>
+-    <PreferenceCategory android:title="Mobile network">
++    <PreferenceCategory android:title="@string/misc_mobile_network">
+         <ListPreference
+             android:defaultValue="default"
+             android:entries="@array/pref_misc_mobile_signal"
+             android:entryValues="@array/pref_misc_mobile_signal_values"
+             android:key="key_misc_mobile_signal"
+-            android:title="Signal meter method" />
++            android:title="@string/misc_mobile_signal" />
+     </PreferenceCategory>
+-    <PreferenceCategory android:title="Audio">
++    <PreferenceCategory android:title="@string/general_audio">
+         <SwitchPreference
              android:defaultValue="false"
              android:key="key_huawei_headset_fix"
 -            android:title="Force headset switch (Huawei default)" />
 +            android:title="@string/misc_huawei_headset_fix" />
- 		<SwitchPreference
+         <SwitchPreference
              android:defaultValue="false"
              android:key="key_misc_headset_devinput"
 -            android:title="Use alternate way to detect headsets" />
 +            android:title="@string/misc_headset_devinput" />
- 		<SwitchPreference
- 			android:defaultValue="false"
- 			android:key="key_misc_disable_audio_effects"
--			android:title="Disable audio effects" />
-+			android:title="@string/misc_disable_audio_effects" />
- 		<SwitchPreference
- 			android:defaultValue="false"
- 			android:key="key_misc_disable_fast_audio"
--			android:title="Disable fast audio" />
-+			android:title="@string/misc_disable_fast_audio" />
- 	</PreferenceCategory>
--	<PreferenceCategory android:title="Display">
-+	<PreferenceCategory android:title="@string/general_display">
- 		<EditTextPreference
+         <SwitchPreference
+             android:defaultValue="false"
+             android:key="key_misc_disable_audio_effects"
+-            android:title="Disable audio effects" />
++            android:title="@string/misc_disable_audio_effects" />
+         <SwitchPreference
+             android:defaultValue="false"
+             android:key="key_misc_disable_fast_audio"
+-            android:title="Disable fast audio" />
++            android:title="@string/misc_disable_fast_audio" />
+     </PreferenceCategory>
+-    <PreferenceCategory android:title="Display">
++    <PreferenceCategory android:title="@string/general_display">
+         <EditTextPreference
              android:defaultValue="-1"
              android:key="key_misc_rounded_corners"
--	        android:title="Set rounded corners diameter"
-+	        android:title="@string/misc_rounded_corners"
- 	        android:inputType="number"
+-            android:title="Set rounded corners diameter"
++            android:title="@string/misc_rounded_corners"
+             android:inputType="number"
 -            android:summary="Requires a reboot" />
 +            android:summary="@string/general_requires_a_reboot" />
- 		<EditTextPreference
- 			android:defaultValue="-1"
- 			android:key="key_misc_rounded_corners_overlay"
--			android:title="Set forced/faked rounded corners diameter"
-+			android:title="@string/misc_rounded_corners_overlay"
- 			android:inputType="number" />
- 		<ListPreference
- 			android:defaultValue="-1"
- 			android:entries="@array/pref_misc_display_fps"
- 			android:entryValues="@array/pref_misc_display_fps_values"
- 			android:key="key_misc_display_fps"
--			android:title="Force FPS" />
-+			android:title="@string/misc_display_fps" />
+         <EditTextPreference
+             android:defaultValue="-1"
+             android:key="key_misc_rounded_corners_overlay"
+-            android:title="Set forced/faked rounded corners diameter"
++            android:title="@string/misc_rounded_corners_overlay"
+             android:inputType="number" />
+         <ListPreference
+             android:defaultValue="-1"
+             android:entries="@array/pref_misc_display_fps"
+             android:entryValues="@array/pref_misc_display_fps_values"
+             android:key="key_misc_display_fps"
+-            android:title="Force FPS" />
++            android:title="@string/misc_display_fps" />
          <Preference
              android:key="key_misc_restart_systemui"
 -            android:title="Restart SystemUI"
@@ -606,41 +606,41 @@ index ef1f593..47786bf 100644
 -            android:summary="Might improve rendering performance\nRequires reboot"/>
 +            android:title="@string/misc_disable_sf_gl_backpressure"
 +            android:summary="@string/misc_disable_sf_gl_backpressure_summary"/>
- 		<ListPreference
-     	    android:defaultValue="1.86"
-     	    android:entries="@array/pref_misc_max_aspect_ratio_pre_o"
-     	    android:entryValues="@array/pref_misc_max_aspect_ratio_pre_o_values"
-     	    android:key="key_misc_max_aspect_ratio_pre_o"
--    	    android:title="Compatibility max aspect ratio" />
-+    	    android:title="@string/misc_max_aspect_ratio_pre_o" />
- 		<SwitchPreference
+         <ListPreference
+             android:defaultValue="1.86"
+             android:entries="@array/pref_misc_max_aspect_ratio_pre_o"
+             android:entryValues="@array/pref_misc_max_aspect_ratio_pre_o_values"
+             android:key="key_misc_max_aspect_ratio_pre_o"
+-            android:title="Compatibility max aspect ratio" />
++            android:title="@string/misc_max_aspect_ratio_pre_o" />
+         <SwitchPreference
              android:defaultValue="false"
              android:key="key_misc_force_navbar_off"
 -            android:title="Force navigation bar disabled"
 -            android:summary="Requires a reboot" />
 +            android:title="@string/misc_force_navbar_off"
 +            android:summary="@string/general_requires_a_reboot" />
- 	</PreferenceCategory>
--	<PreferenceCategory android:title="Backlight">
-+	<PreferenceCategory android:title="@string/misc_backlight">
- 		<SwitchPreference
+     </PreferenceCategory>
+-    <PreferenceCategory android:title="Backlight">
++    <PreferenceCategory android:title="@string/misc_backlight">
+         <SwitchPreference
              android:defaultValue="false"
              android:key="key_misc_low_gamma_brightness"
 -            android:title="Set alternative brightness curve" />
 +            android:title="@string/misc_low_gamma_brightness" />
- 		<SwitchPreference
+         <SwitchPreference
              android:defaultValue="false"
              android:key="key_misc_linear_brightness"
 -            android:title="Set linear brightness curve" />
 +            android:title="@string/misc_linear_brightness" />
- 		<SwitchPreference
+         <SwitchPreference
              android:defaultValue="false"
              android:key="key_misc_disable_buttons_backlight"
 -            android:title="Disable backlight of hardware buttons if present"
 -            android:summary="Requires a reboot" />
 +            android:title="@string/misc_disable_buttons_backlight"
 +            android:summary="@string/general_requires_a_reboot" />
- 		<SwitchPreference
+         <SwitchPreference
              android:defaultValue="false"
              android:key="key_misc_backlight_scale"
 -            android:title="Force alternative backlight scale" />
@@ -650,106 +650,114 @@ index ef1f593..47786bf 100644
              android:key="key_misc_minimal_brightness"
 -            android:title="Allows setting brightness to the lowest possible" />
 +            android:title="@string/misc_minimal_brightness" />
- 	</PreferenceCategory>
--	<PreferenceCategory android:title="Camera">
-+	<PreferenceCategory android:title="@string/general_camera">
- 		<SwitchPreference
- 			android:defaultValue="false"
- 			android:key="key_misc_multi_camera"
--			android:title="Expose Aux cameras" />
-+			android:title="@string/misc_multi_camera" />
- 		<SwitchPreference
- 			android:defaultValue="false"
- 			android:key="key_misc_force_camera2api_hal3"
--			android:title="Force Enable Camera2API HAL3" />
-+			android:title="@string/misc_force_camera2api_hal3" />
- 		<ListPreference
- 		    android:defaultValue="-1"
- 		    android:entries="@array/pref_misc_camera_timestamp"
- 		    android:entryValues="@array/pref_misc_camera_timestamp_values"
- 		    android:key="key_misc_camera_timestamp"
+     </PreferenceCategory>
+-    <PreferenceCategory android:title="Camera">
++    <PreferenceCategory android:title="@string/general_camera">
+         <SwitchPreference
+             android:defaultValue="false"
+             android:key="key_misc_multi_camera"
+-            android:title="Expose Aux cameras" />
++            android:title="@string/misc_multi_camera" />
+         <SwitchPreference
+             android:defaultValue="false"
+             android:key="key_misc_force_camera2api_hal3"
+-            android:title="Force Enable Camera2API HAL3" />
++            android:title="@string/misc_force_camera2api_hal3" />
+         <ListPreference
+             android:defaultValue="-1"
+             android:entries="@array/pref_misc_camera_timestamp"
+             android:entryValues="@array/pref_misc_camera_timestamp_values"
+             android:key="key_misc_camera_timestamp"
 -            android:title="Force Timestamp Source"
 -            android:summary="Requires a reboot" />
 +            android:title="@string/misc_camera_timestamp"
 +            android:summary="@string/general_requires_a_reboot" />
    </PreferenceCategory>
--	<PreferenceCategory android:title="Bluetooth">
-+	<PreferenceCategory android:title="@string/misc_bluetooth">
- 		<ListPreference
- 			android:defaultValue="0"
- 			android:entries="@array/pref_misc_bluetooth"
- 			android:entryValues="@array/pref_misc_bluetooth_values"
- 			android:key="key_misc_bluetooth"
--			android:title="Bluetooth workarounds" />
-+			android:title="@string/misc_bluetooth_workarounds" />
- 		<SwitchPreference
+-    <PreferenceCategory android:title="Bluetooth">
++    <PreferenceCategory android:title="@string/misc_bluetooth">
+         <SwitchPreference
              android:defaultValue="true"
              android:key="key_misc_dynamic_sysbta"
 -            android:title="Use System Wide BT HAL" />
 +            android:title="@string/misc_dynamic_sysbta" />
- 	</PreferenceCategory>
--	<PreferenceCategory android:title="Telephony">
-+	<PreferenceCategory android:title="@string/general_telephony">
- 		<SwitchPreference
- 			android:defaultValue="false"
- 			android:key="key_misc_allow_binder_thread_on_incoming_calls"
--			android:summary="May fix 4G calling\nRequires a reboot"
--			android:title="Allow binder thread on incoming calls" />
-+			android:summary="@string/misc_allow_binder_thread_on_incoming_calls_summary"
-+			android:title="@stting/misc_allow_binder_thread_on_incoming_calls" />
- 		<SwitchPreference
- 			android:defaultValue="false"
- 			android:key="key_misc_force_display_5g"
--			android:title="Force display 5G network"
--			android:summary="Displays 5G as an option for the preferred network type\nRequires a reboot" />
-+			android:title="@string/misc_force_display_5g"
-+			android:summary="@string/misc_force_display_5g_summary" />
- 		<SwitchPreference
- 			android:defaultValue="false"
- 			android:key="key_misc_disable_voice_call_in"
--			android:title="Disable &quot;Voice Call In&quot; route"
--			android:summary="May fix echo or non-working audio on calls\nRequires a reboot" />
-+			android:title="@string/misc_disable_voice_call_in"
-+			android:summary="@string/misc_disable_voice_call_in_summary" />
- 		<SwitchPreference
- 				android:defaultValue="false"
- 				android:key="key_misc_restart_ril"
--				android:title="Automatically restart RIL" />
-+				android:title="@string/misc_restart_ril" />
- 		<Preference android:title="@string/remove_telephony_subsystem"
+         <ListPreference
+             android:defaultValue="0"
+             android:entries="@array/pref_misc_bluetooth"
+             android:entryValues="@array/pref_misc_bluetooth_values"
+             android:key="key_misc_bluetooth"
+-            android:title="Bluetooth workarounds" />
++            android:title="@string/misc_bluetooth_workarounds" />
+         <ListPreference
+             android:defaultValue="0"
+             android:entries="@array/pref_misc_transport_size"
+             android:entryValues="@array/pref_misc_transport_size_values"
+             android:key="key_misc_esco_transport_unit_size"
+-            android:title="Set eSCO transport unit size" />
++            android:title="@string/misc_esco_transport_unit_size" />
+     </PreferenceCategory>
+-    <PreferenceCategory android:title="Telephony">
++    <PreferenceCategory android:title="@string/general_telephony">
+         <SwitchPreference
+             android:defaultValue="false"
+             android:key="key_misc_allow_binder_thread_on_incoming_calls"
+-            android:summary="May fix 4G calling\nRequires a reboot"
+-            android:title="Allow binder thread on incoming calls" />
++            android:summary="@string/misc_allow_binder_thread_on_incoming_calls_summary"
++            android:title="@stting/misc_allow_binder_thread_on_incoming_calls" />
+         <SwitchPreference
+             android:defaultValue="false"
+             android:key="key_misc_force_display_5g"
+-            android:title="Force display 5G network"
+-            android:summary="Displays 5G as an option for the preferred network type\nRequires a reboot" />
++            android:title="@string/misc_force_display_5g"
++            android:summary="@string/misc_force_display_5g_summary" />
+         <SwitchPreference
+             android:defaultValue="false"
+             android:key="key_misc_disable_voice_call_in"
+-            android:title="Disable &quot;Voice Call In&quot; route"
+-            android:summary="May fix echo or non-working audio on calls\nRequires a reboot" />
++            android:title="@string/misc_disable_voice_call_in"
++            android:summary="@string/misc_disable_voice_call_in_summary" />
+         <SwitchPreference
+             android:defaultValue="false"
+             android:key="key_misc_restart_ril"
+-            android:title="Automatically restart RIL" />
++            android:title="@string/misc_restart_ril" />
+         <Preference android:title="@string/remove_telephony_subsystem"
              android:key="key_misc_removetelephony" />
- 	</PreferenceCategory>
--	<PreferenceCategory android:title="Other">
-+	<PreferenceCategory android:title="@string/general_other">
- 		<SwitchPreference
+     </PreferenceCategory>
+-    <PreferenceCategory android:title="Other">
++    <PreferenceCategory android:title="@string/general_other">
+         <SwitchPreference
              android:defaultValue="false"
              android:key="key_misc_storage_fuse"
 -            android:title="Disable FUSE storage layer"
 -            android:summary="This can (de/in)crease storage speed\nRequires a reboot" />
 +            android:title="@string/misc_storage_fuse"
 +            android:summary="@string/misc_storage_fuse_summary" />
- 		<SwitchPreference
- 				android:defaultValue="false"
- 				android:key="key_misc_dt2w"
+         <SwitchPreference
+             android:defaultValue="false"
+             android:key="key_misc_dt2w"
 -            android:title="Double tap to wake"
 -            android:summary="Unlikely to work for you" />
 +            android:title="@string/misc_dt2w"
 +            android:summary="@string/misc_dt2w_summary" />
- 		<SwitchPreference
- 				android:defaultValue="false"
- 				android:key="key_misc_disable_sae_upgrade"
+         <SwitchPreference
+             android:defaultValue="false"
+             android:key="key_misc_disable_sae_upgrade"
 -            android:title="Disable WPA3/SAE" />
 +            android:title="@string/misc_disable_sae_upgrade" />
- 		<ListPreference
- 		    android:defaultValue="00ff00"
- 		    android:entries="@array/pref_misc_fod_color"
- 		    android:entryValues="@array/pref_misc_fod_color_values"
- 		    android:key="key_misc_fod_color"
+         <ListPreference
+             android:defaultValue="00ff00"
+             android:entries="@array/pref_misc_fod_color"
+             android:entryValues="@array/pref_misc_fod_color_values"
+             android:key="key_misc_fod_color"
 -            android:title="Under-display fp color" />
+-        <Preference android:title="Securize"
 +            android:title="@string/misc_fod_color" />
- 		<Preference android:title="Securize"
++        <Preference android:title="@string/misc_securize"
              android:key="key_misc_securize" />
- 	</PreferenceCategory>
+     </PreferenceCategory>
 -    <PreferenceCategory android:title="Debugging">
 -        <Preference android:title="Debug Sensors">
 +    <PreferenceCategory android:title="@string/misc_debugging">
@@ -757,8 +765,8 @@ index ef1f593..47786bf 100644
              <intent
                  android:action="android.intent.action.VIEW"
                  android:targetPackage="me.phh.treble.app"
-@@ -200,6 +200,6 @@
- 		<SwitchPreference
+@@ -206,6 +206,6 @@
+         <SwitchPreference
              android:defaultValue="false"
              android:key="key_misc_remotectl"
 -            android:title="Allow takeover of the device by phh for debugging" />
@@ -1026,10 +1034,10 @@ index 491eca4..b561b03 100644
 +        android:summary="@string/qualcomm_disable_stereo_voip_summary" />
  </PreferenceScreen>
 diff --git a/app/src/main/res/xml/pref_samsung.xml b/app/src/main/res/xml/pref_samsung.xml
-index 346ff85..0df9b66 100644
+index a83bc13..a70b206 100644
 --- a/app/src/main/res/xml/pref_samsung.xml
 +++ b/app/src/main/res/xml/pref_samsung.xml
-@@ -1,78 +1,78 @@
+@@ -1,72 +1,72 @@
  <?xml version="1.0" encoding="utf-8"?>
  <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 -    <PreferenceCategory android:title="Audio">
@@ -1051,13 +1059,6 @@ index 346ff85..0df9b66 100644
 -            android:summary="May fix broken mic on video recording" />
 +            android:title="@string/samsung_disable_back_mic"
 +            android:summary="@string/samsung_disable_back_mic_summary" />
-         <ListPreference
-             android:defaultValue="0"
-             android:entries="@array/pref_samsung_transport_size"
-             android:entryValues="@array/pref_samsung_transport_size_values"
-             android:key="key_samsung_esco_transport_unit_size"
--            android:title="Set eSCO transport unit size" />
-+            android:title="@string/samsung_esco_transport_unit_size" />
      </PreferenceCategory>
 -    <PreferenceCategory android:title="Screen">
 +    <PreferenceCategory android:title="@string/general_screen">
@@ -1096,14 +1097,14 @@ index 346ff85..0df9b66 100644
 -            android:summary="Requires Q vendor" />
 +            android:title="@string/samsung_camera_ids"
 +            android:summary="@string/samsung_camera_ids_summary" />
- 		<EditTextPreference
+         <EditTextPreference
              android:defaultValue="1"
              android:key="key_samsung_flash_strength"
--	        android:title="Set flash strength"
--	        android:summary="Usually values are integers between 1 and 5"
-+	        android:title="@string/samsung_flash_strength"
-+	        android:summary="@string/samsung_flash_strength_summary"
- 	        android:inputType="number" />
+-            android:title="Set flash strength"
+-            android:summary="Usually values are integers between 1 and 5"
++            android:title="@string/samsung_flash_strength"
++            android:summary="@string/samsung_flash_strength_summary"
+             android:inputType="number" />
      </PreferenceCategory>
 -    <PreferenceCategory android:title="Workarounds">
 +    <PreferenceCategory android:title="@string/samsung_workarounds">
