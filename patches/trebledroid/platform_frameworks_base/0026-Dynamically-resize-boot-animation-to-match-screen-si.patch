@@ -1,7 +1,7 @@
-From 291764a389f939d09d3fb9714ba14e6761454bf8 Mon Sep 17 00:00:00 2001
+From 00b8237a2baa94ece1b106dcca40363bf6037487 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Mon, 20 Dec 2021 15:01:41 -0500
-Subject: [PATCH 26/45] Dynamically resize boot animation to match screen size
+Subject: [PATCH 26/49] Dynamically resize boot animation to match screen size
 
 Change-Id: I54e49fc6b8c670103852e212d1416e27ff976205
 ---
@@ -9,10 +9,10 @@ Change-Id: I54e49fc6b8c670103852e212d1416e27ff976205
  1 file changed, 22 insertions(+)
 
 diff --git a/cmds/bootanimation/BootAnimation.cpp b/cmds/bootanimation/BootAnimation.cpp
-index a8b6c0b70804..9c50e954cee5 100644
+index 820d2b0d607e..56dfa8af31c4 100644
 --- a/cmds/bootanimation/BootAnimation.cpp
 +++ b/cmds/bootanimation/BootAnimation.cpp
-@@ -605,6 +605,28 @@ status_t BootAnimation::readyToRun() {
+@@ -618,6 +618,28 @@ status_t BootAnimation::readyToRun() {
      mFlingerSurface = s;
      mTargetInset = -1;
  
@@ -42,5 +42,5 @@ index a8b6c0b70804..9c50e954cee5 100644
      // ro.bootanim.set_orientation_<display_id>. Four values are supported: ORIENTATION_0,
      // ORIENTATION_90, ORIENTATION_180 and ORIENTATION_270.
 -- 
-2.41.0
+2.39.3 (Apple Git-145)
 

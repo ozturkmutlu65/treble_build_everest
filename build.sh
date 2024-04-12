@@ -83,7 +83,7 @@ initRepo() {
         echo
         echo "--> $INIT_MIKU_UI"
         echo
-        repo init -u https://github.com/Miku-UI/manifesto -b Udon --depth=1
+        repo init -u https://github.com/Miku-UI/manifesto -b Udon_v2 --depth=1
     fi
 
     if [ -d .repo ] && [ ! -f .repo/local_manifests/miku-treble.xml ]; then
@@ -189,7 +189,7 @@ buildTreble() {
     echo
     echo "--> $BUILD_TREBLE_IMAGE: $1"
     echo
-    lunch $1-userdebug
+    lunch $1-ap1a-userdebug
     make -j$(nproc --all) systemimage
     mv $OUT/system.img $BD/system-$1.img
     make installclean
@@ -281,7 +281,7 @@ BUILD_DATE="$(date +%Y%m%d)"
 
 SD=$(cd $(dirname $0);pwd)
 BD=$HOME/builds
-VERSION=Udon
+VERSION=Udon_v2
 VERSION_CODE=`grep -oP '(?<=最新版本: ).*' $SD/README.md`
 
 multipleLanguages

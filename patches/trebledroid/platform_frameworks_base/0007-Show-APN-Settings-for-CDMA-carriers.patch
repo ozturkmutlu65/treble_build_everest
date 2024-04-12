@@ -1,17 +1,17 @@
-From 172be80917720967bf9c0f6987b6495e3fe6df04 Mon Sep 17 00:00:00 2001
+From 05783aaba484854b622c14da304621641713817a Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Mon, 6 Aug 2018 12:49:00 +0200
-Subject: [PATCH 07/45] Show APN Settings for CDMA carriers
+Subject: [PATCH 07/49] Show APN Settings for CDMA carriers
 
 ---
  telephony/java/android/telephony/CarrierConfigManager.java | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/telephony/java/android/telephony/CarrierConfigManager.java b/telephony/java/android/telephony/CarrierConfigManager.java
-index 3d46c33534af..3f29b459b7cf 100644
+index 7cb2cc398c46..1655dab30f6a 100644
 --- a/telephony/java/android/telephony/CarrierConfigManager.java
 +++ b/telephony/java/android/telephony/CarrierConfigManager.java
-@@ -9904,7 +9904,7 @@ public class CarrierConfigManager {
+@@ -10139,7 +10139,7 @@ public class CarrierConfigManager {
          sDefaults.putBoolean(KEY_OPERATOR_SELECTION_EXPAND_BOOL, true);
          sDefaults.putBoolean(KEY_PREFER_2G_BOOL, false);
          sDefaults.putBoolean(KEY_4G_ONLY_BOOL, false);
@@ -21,5 +21,5 @@ index 3d46c33534af..3f29b459b7cf 100644
          sDefaults.putBoolean(KEY_SMS_REQUIRES_DESTINATION_NUMBER_CONVERSION_BOOL, false);
          sDefaults.putBoolean(KEY_SUPPORT_EMERGENCY_SMS_OVER_IMS_BOOL, false);
 -- 
-2.41.0
+2.39.3 (Apple Git-145)
 

@@ -1,7 +1,7 @@
-From 8a1a6cbe6bda1c4cb77c35680d8648a38301cd33 Mon Sep 17 00:00:00 2001
+From 3a940647a6340da142ccd53ceb72efe2df43a9aa Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Fri, 2 Jun 2023 19:19:31 -0400
-Subject: [PATCH 30/45] Try catch around constrainNitsAndBacklightArrays, and
+Subject: [PATCH 30/49] Try catch around constrainNitsAndBacklightArrays, and
  falls back to dumb curve. It crashes on Xperia 1 IV.
 
 ---
@@ -9,10 +9,10 @@ Subject: [PATCH 30/45] Try catch around constrainNitsAndBacklightArrays, and
  1 file changed, 31 insertions(+), 25 deletions(-)
 
 diff --git a/services/core/java/com/android/server/display/DisplayDeviceConfig.java b/services/core/java/com/android/server/display/DisplayDeviceConfig.java
-index b0ebab8e4002..77dafd5068d0 100644
+index 3dcb84dad786..9585bdc712cd 100644
 --- a/services/core/java/com/android/server/display/DisplayDeviceConfig.java
 +++ b/services/core/java/com/android/server/display/DisplayDeviceConfig.java
-@@ -1903,37 +1903,43 @@ public class DisplayDeviceConfig {
+@@ -2120,37 +2120,43 @@ public class DisplayDeviceConfig {
              return;
          }
  
@@ -82,5 +82,5 @@ index b0ebab8e4002..77dafd5068d0 100644
  
      private Spline loadSdrHdrRatioMap(HighBrightnessMode hbmConfig) {
 -- 
-2.41.0
+2.39.3 (Apple Git-145)
 

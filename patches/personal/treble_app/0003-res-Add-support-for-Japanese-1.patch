@@ -1,7 +1,7 @@
 From 9ec04099b764d36c1dcac571300a4d34a8d7227a Mon Sep 17 00:00:00 2001
 From: "Re*Index. (ot_inc)" <32851879+reindex-ot@users.noreply.github.com>
 Date: Thu, 25 May 2023 21:21:15 +0900
-Subject: [PATCH 3/3] res: Add support for Japanese (#1)
+Subject: [PATCH 3/4] res: Add support for Japanese (#1)
 
 Update Japanese Strings. (#4)
 

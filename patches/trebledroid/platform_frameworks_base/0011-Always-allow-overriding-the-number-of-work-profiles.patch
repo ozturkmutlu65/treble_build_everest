@@ -1,7 +1,7 @@
-From ba610715e0baef922146bc8249f451de4fa1a82d Mon Sep 17 00:00:00 2001
+From e5d6745e4a65b3b2240de38c86c6c125802ea0b3 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sun, 5 Apr 2020 16:32:46 +0200
-Subject: [PATCH 11/45] Always allow overriding the number of work profiles
+Subject: [PATCH 11/49] Always allow overriding the number of work profiles
 
 Change-Id: I6eb09aa71663c6fbe7563e3038bffcabdba0ff6a
 ---
@@ -9,10 +9,10 @@ Change-Id: I6eb09aa71663c6fbe7563e3038bffcabdba0ff6a
  1 file changed, 2 insertions(+), 6 deletions(-)
 
 diff --git a/services/core/java/com/android/server/pm/UserManagerService.java b/services/core/java/com/android/server/pm/UserManagerService.java
-index d2929aef8a63..af0a221bd3e3 100644
+index c48eccf2aac5..071d4a75ebcd 100644
 --- a/services/core/java/com/android/server/pm/UserManagerService.java
 +++ b/services/core/java/com/android/server/pm/UserManagerService.java
-@@ -7346,12 +7346,8 @@ public class UserManagerService extends IUserManager.Stub {
+@@ -7555,12 +7555,8 @@ public class UserManagerService extends IUserManager.Stub {
       */
      private static int getMaxUsersOfTypePerParent(UserTypeDetails userTypeDetails) {
          final int defaultMax = userTypeDetails.getMaxAllowedPerParent();
@@ -28,5 +28,5 @@ index d2929aef8a63..af0a221bd3e3 100644
          return defaultMax;
      }
 -- 
-2.41.0
+2.39.3 (Apple Git-145)
 
