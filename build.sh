@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e
-
 multipleLanguages() {
     if [ -n $(echo $LANG | grep zh_CN) ]; then
         BUILDBOT="Miku UI Udon通用镜像自动构建"
