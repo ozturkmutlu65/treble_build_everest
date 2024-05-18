@@ -1,7 +1,7 @@
-From bac2c34b4964811fc20e5435a9df5173ede77088 Mon Sep 17 00:00:00 2001
+From c752111e38f50f67301279a8f5c7593a1aa4a9ae Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sun, 10 Dec 2023 18:04:49 -0500
-Subject: [PATCH 42/49] Add support for Samsung full brightness on their AIDL
+Subject: [PATCH 42/51] Add support for Samsung full brightness on their AIDL
  HAL
 
 ---

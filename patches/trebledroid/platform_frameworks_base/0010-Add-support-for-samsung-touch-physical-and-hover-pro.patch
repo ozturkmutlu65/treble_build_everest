@@ -1,7 +1,7 @@
-From f3d26037e0279789b63dcc67a1df00450a4e4c6d Mon Sep 17 00:00:00 2001
+From 1c92a578ba1005db32b7dc611c945bd5202f86dc Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Mon, 12 Aug 2019 23:08:26 +0200
-Subject: [PATCH 10/49] Add support for samsung touch, physical and hover
+Subject: [PATCH 10/51] Add support for samsung touch, physical and hover
  proximity sensor as fallback to real proximity sensor
 
 Change-Id: I7a0f8b4665c802140d19197d850b77b2a7ac1865

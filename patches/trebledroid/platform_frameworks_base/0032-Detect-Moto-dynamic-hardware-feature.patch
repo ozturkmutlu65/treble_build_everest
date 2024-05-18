@@ -1,7 +1,7 @@
-From 4e196d9252e282c1c9941f70b5c4a3dde510fbaf Mon Sep 17 00:00:00 2001
+From e79b79fb8226722f0d465acdfe46b35eebcf2305 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Wed, 5 Jul 2023 10:50:36 -0400
-Subject: [PATCH 32/49] Detect Moto dynamic hardware feature
+Subject: [PATCH 32/51] Detect Moto dynamic hardware feature
 
 Moto added a custom node in sysconfig XMLs:
 <unavailable-feature-conditional />

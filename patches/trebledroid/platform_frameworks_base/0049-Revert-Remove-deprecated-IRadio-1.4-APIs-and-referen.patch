@@ -1,7 +1,7 @@
-From ffc63f0862c5f691e6f746a92fb5059671b88f9b Mon Sep 17 00:00:00 2001
+From 5e6e154ae5d06024c21d1a1c20ad12a614a0ece4 Mon Sep 17 00:00:00 2001
 From: Alberto Ponces <ponces26@gmail.com>
 Date: Sun, 31 Mar 2024 23:38:19 +0000
-Subject: [PATCH 49/49] Revert "Remove deprecated IRadio <1.4 APIs and
+Subject: [PATCH 49/51] Revert "Remove deprecated IRadio <1.4 APIs and
  references"
 
 This reverts commit 4d53aa0caec7029bf6c9b5789c1708bc4bb71b76.

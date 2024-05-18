@@ -1,7 +1,7 @@
-From c34841041a2fd9ec0bac5e599cdf43b0b802bba5 Mon Sep 17 00:00:00 2001
+From 69712d9928482d9c3ca75f3ca977bc9cf233a7d2 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Fri, 6 Oct 2023 19:01:27 -0400
-Subject: [PATCH 19/25] Disable project_quota on old devices but new enough to
+Subject: [PATCH 19/26] Disable project_quota on old devices but new enough to
  have encryption (they do keep quota support)
 
 ---

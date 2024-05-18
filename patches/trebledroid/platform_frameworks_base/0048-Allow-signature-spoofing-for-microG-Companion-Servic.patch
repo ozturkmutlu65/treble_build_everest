@@ -1,7 +1,7 @@
-From 70758d3e13adb74d0347e9d83f2ecb607c817c19 Mon Sep 17 00:00:00 2001
+From 46faa1e3efe3e5bff668304590f51e829b981c19 Mon Sep 17 00:00:00 2001
 From: LuK1337 <priv.luk@gmail.com>
 Date: Mon, 19 Feb 2024 16:20:04 +0100
-Subject: [PATCH 48/49] Allow signature spoofing for microG Companion/Services
+Subject: [PATCH 48/51] Allow signature spoofing for microG Companion/Services
 
 This patch enables signature spoofing when the following conditions are
 met:
