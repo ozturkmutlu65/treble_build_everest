@@ -267,7 +267,6 @@ personal() {
 ### Change log
 $GITCHANGELOG" $VERSION-$VERSION_CODE
 
-    rm -rf $BD/MikuUI-$VERSION-$VERSION_CODE-*.xz
     cd ..
 }
 
