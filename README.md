@@ -69,5 +69,3 @@ Miku UI
 - [haridhayal11](https://github.com/haridhayal11)
 - [sooti](https://github.com/sooti)
 - [Iceows](https://github.com/Iceows)
-
-- [暮间雾](https://github.com/mujianwu)提供的服务器

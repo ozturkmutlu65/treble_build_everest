@@ -250,16 +250,14 @@ generateOtaJson() {
     }
 }
 
+# I use American server in China, so need it
 personal() {
     echo
     echo "--> $UP_GITHUB_RELEASE"
     echo
     cd $SD
-    git config user.name "xiaoleGun"
-    git config user.email "1592501605@qq.com"
     GITLATESTTAG=$(git describe --tags --abbrev=0)
     GITCHANGELOG=$(git log $GITLATESTTAG..HEAD --pretty=format:"%s")
-    GITHUB_TOKEN=$2
     assets=()
     for f in $BD/MikuUI-$VERSION-$VERSION_CODE-*.xz; do [ -f "$f" ] && assets+=(-a "$f"); done
     hub release create ${assets[@]} -m "Miku UI $VERSION v$VERSION_CODE
@@ -314,12 +312,8 @@ generatePackages miku_treble_arm64_bgN arm64-ab -gapps
 generatePackages miku_treble_a64_bvN a64-ab
 generatePackages miku_treble_a64_bgN a64-ab -gapps
 
-generateOtaJson
-
-if [ $1 == release ] && [ -z $2 ]; then
-    echo "请预设Token"
-    exit 2
-else
+if [ $USER == xiaolegun ]; then
+    generateOtaJson
     personal
 fi
 
