@@ -8,7 +8,7 @@ Latest version: 0.9.0
 
 [Downloads](https://github.com/ozturkmutlu65/treble_build_everest/releases)
 
-Miku UI
+ProjectEverest
 ```
 
 (1) Vendors of Android 9 and above support SAR(system-as-root), so GSI of AB partition type can be used.
