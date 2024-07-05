@@ -1,34 +1,13 @@
 #!/bin/bash
 
 multipleLanguages() {
-    if [ -n $(echo $LANG | grep zh_CN) ]; then
-        BUILDBOT="Miku UI Udon通用镜像自动构建"
-        BUILDBOT_EXIT="3秒后开始构建Miku UI通用镜像 - CTRL-C退出"
-        SHOW_VERSION="构建版本"
-        ONCE_PASSWORD="请输入 $USER 的密码: "
-        ARCH_LINUX="检测到Arch Linux"
-        INIT_MIKU_UI="初始Miku UI"
-        PREPARE_LOCAL_MANIFEST="处理treble manifest"
-        SYNC_REPOS="同步仓库"
-        APPLY_TREBLEDROID_PATCH="应用 trebledroid 补丁中"
-        APPLY_PERSONAL_PATCH="应用 personal 补丁中"
-        SET_UP_ENVIRONMENT="准备构建环境"
-        DOWNLOAD_VIA="下载Via"
-        GEN_DEVICE_MAKEFILE="生成 treble 设备"
-        BUILD_TREBLE_APP="构建 treble app 中"
-        BUILD_TREBLE_IMAGE="构建 treble 镜像中"
-        BUILD_VNDKLITE_VARIANT="构建 vndklite 版本中"
-        GEN_PACKAGE="打包中"
-        GEN_UP_JSON="生成升级json"
-        UP_GITHUB_RELEASE="上传到Github release"
-        COMPLETED="构建完成，使用了 $1 分钟 $2 秒"
-    else
-        BUILDBOT="Miku UI Udon Treble Buildbot"
+    if [ -n $(echo $LANG | grep en_US) ]; then
+        BUILDBOT="Project Everest Treble Buildbot"
         BUILDBOT_EXIT="Executing in 3 seconds - CTRL-C to exit"
         SHOW_VERSION="Build version"
         ONCE_PASSWORD="Please enter the password of $USER: "
         ARCH_LINUX="Arch Linux Detected"
-        INIT_MIKU_UI="Initializing Miku UI workspace"
+        INIT_MIKU_UI="Initializing Project Everest workspace"
         PREPARE_LOCAL_MANIFEST="Preparing local manifest"
         SYNC_REPOS="Syncing repos"
         APPLY_TREBLEDROID_PATCH="Applying trebledroid patches"
@@ -38,7 +17,6 @@ multipleLanguages() {
         GEN_DEVICE_MAKEFILE="Treble device generation"
         BUILD_TREBLE_APP="Building treble app"
         BUILD_TREBLE_IMAGE="Building treble image"
-        BUILD_VNDKLITE_VARIANT="Building vndklite variant"
         GEN_PACKAGE="Generating packages"
         GEN_UP_JSON="Generating Update json"
         UP_GITHUB_RELEASE="Upload to github release"
@@ -51,7 +29,7 @@ warning() {
     echo "-----------------------------------------"
     echo "      $BUILDBOT                          "
     echo "                  by                     "
-    echo "               xiaoleGun                 "
+    echo "              mrgebesturle               "
     echo " $BUILDBOT_EXIT                          "
     echo "-----------------------------------------"
     echo
@@ -81,7 +59,7 @@ initRepo() {
         echo
         echo "--> $INIT_MIKU_UI"
         echo
-        repo init -u https://github.com/Miku-UI/manifesto -b Udon_v2 --depth=1
+        repo init -u https://github.com/ProjectEverest/manifest -b qpr3 --git-lfs
     fi
 
     if [ -d .repo ] && [ ! -f .repo/local_manifests/miku-treble.xml ]; then
@@ -112,7 +90,7 @@ syncRepo() {
     echo
     echo "--> $SYNC_REPOS"
     echo
-    repo sync -c --force-sync --no-clone-bundle --no-tags -j$(nproc --all)
+    repo sync -c --force-sync --optimized-fetch --no-tags --no-clone-bundle --prune -j$(nproc --all)
 }
 
 applyPatches() {
@@ -165,7 +143,7 @@ generateDevice() {
     rm -rf device/*/sepolicy/common/private/genfs_contexts
     cd device/phh/treble
     git clean -fdx
-    bash generate.sh miku
+    bash generate.sh everest
     cd via
     downloadVia
     cd ../../../..
@@ -193,21 +171,6 @@ buildTreble() {
     make installclean
 }
 
-buildSasImages() {
-    echo
-    echo "--> $BUILD_VNDKLITE_VARIANT: $1"
-    echo
-    cd sas-creator
-    if [ -n "$(cat lite-adapter.sh | grep 3500M)" ]; then
-        sed -i 's/3500M/5000M/' lite-adapter.sh
-        sed -i 's/3500M/5000M/' run.sh
-    fi
-    echo "$password" | sudo -S bash lite-adapter.sh 64 $BD/system-$1.img
-    cp s.img $BD/system-$1-vndklite.img
-    echo "$password" | sudo -S rm -rf s.img d tmp
-    cd ..
-}
-
 generatePackages() {
     echo
     echo "--> $GEN_PACKAGE: $1"
@@ -224,24 +187,17 @@ generateOtaJson() {
     echo
     echo "--> $GEN_UP_JSON"
     echo
-    prefix="MikuUI-$VERSION-$VERSION_CODE-"
+    prefix="ProjectEverest-$VERSION-$VERSION_CODE-"
     suffix="-$BUILD_DATE-UNOFFICIAL.img.gz"
     json="{\"version\": \"$VERSION_CODE\",\"date\": \"$(date +%s -d '-4hours')\",\"variants\": ["
     find $BD -name "*.img.xz" | {
         while read file; do
             packageVariant=$(echo $(basename $file) | sed -e s/^$prefix// -e s/$suffix$//)
             case $packageVariant in
-                "a64-ab") name="miku_treble_a64_bvN" ;;
-                "arm64-ab") name="miku_treble_arm64_bvN" ;;
-                "a64-ab-vndklite") name="miku_treble_a64_bvN-vndklite" ;;
-                "arm64-ab-vndklite") name="miku_treble_arm64_bvN-vndklite" ;;
-                "a64-ab-gapps") name="miku_treble_a64_bgN" ;;
-                "arm64-ab-gapps") name="miku_treble_arm64_bgN" ;;
-                "a64-ab-gapps-vndklite") name="miku_treble_a64_bgN-vndklite" ;;
-                "arm64-ab-gapps-vndklite") name="miku_treble_arm64_bgN-vndklite" ;;
+                "arm64-ab") name="everest_treble_arm64_bvN" ;;
             esac
             size=$(wc -c $file | awk '{print $1}')
-            url="https://github.com/xiaoleGun/treble_build_miku/releases/download/$VERSION-$VERSION_CODE/$(basename $file)"
+            url="https://github.com/ozturkmutlu65/treble_build_everest/releases/download/$VERSION-$VERSION_CODE/$(basename $file)"
             json="${json} {\"name\": \"$name\",\"size\": \"$size\",\"url\": \"$url\"},"
         done
         json="${json%?}]}"
@@ -296,20 +252,9 @@ initEnvironment
 generateDevice
 buildTrebleApp
 
-buildTreble miku_treble_arm64_bvN
-buildTreble miku_treble_arm64_bgN
-buildTreble miku_treble_a64_bvN
-buildTreble miku_treble_a64_bgN
+buildTreble everest_treble_arm64_bvN
 
-buildSasImages miku_treble_arm64_bvN
-buildSasImages miku_treble_arm64_bgN
-buildSasImages miku_treble_a64_bvN
-buildSasImages miku_treble_a64_bgN
-
-generatePackages miku_treble_arm64_bvN arm64-ab
-generatePackages miku_treble_arm64_bgN arm64-ab -gapps
-generatePackages miku_treble_a64_bvN a64-ab
-generatePackages miku_treble_a64_bgN a64-ab -gapps
+generatePackages everest_treble_arm64_bvN arm64-ab
 
 if [ $USER == xiaolegun ]; then
     generateOtaJson
