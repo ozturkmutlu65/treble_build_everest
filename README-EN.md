@@ -1,35 +1,13 @@
-# Miku UI GSI
+# ProjectEverest GSI
 
 ## Preface
-This is an Android project for Miku fans. If you don't like it, please close this page, but don't attack Miku and the author of this project.
+This is an Android project for Everest fans. If you don't like it, please close this page, but don't attack Everest and the author of this project.
 
 ## Version
 Latest version: 0.9.0
 
-[Downloads](https://github.com/xiaoleGun/treble_build_miku/releases)
+[Downloads](https://github.com/ozturkmutlu65/treble_build_everest/releases)
 
-## Variant
-Examples
-> MikuUI-TDA-0.13.3-arm64-ab-vndklite-gapps-20230406-UNOFFICIAL.img.xz
-
-They are
-```
-ProjectName-{SNOW | SNOWLAND | TDA | Udon}-version-arm64-ab-vndklite-gapps-BuildDate-Buildtype
- |                |          |     |                  |    |     |      |
- |                |          |     |                  |    |     |      |
- |                |          |     |                  |    |     |     GMS
- |                |          |     |                  |    |     |
- |                |          |     |                  |    |     |
- |                |          |     |                  |    |    It is used for vndklite devices and 
- |                |          |     |                  |    |    supports system reading and writing.
- |                |          |     |                  |    |
- |                |          |     |                  |  Partition type, only AB variants are provided.(1)
- |                |          |     |                  |
- |                |          |     |                  |
- |                |          |     |             CPU arch, build 64 bits and a64(2).
- |                |          |     |
- |     Android 12 | 12.1     | 13  | 14
- |
 Miku UI
 ```
 
@@ -43,22 +21,22 @@ To get started with building Miku UI GSI, you'll need to get familiar with [Git 
     ```
     sudo apt-get install bc bison build-essential ccache curl flex g++-multilib gcc-multilib git gnupg gperf imagemagick lib32ncurses5-dev lib32readline-dev lib32z1-dev liblz4-tool libncurses5 libncurses5-dev libsdl1.2-dev libssl-dev libxml2 libxml2-utils lzop pngcrush rsync schedtool squashfs-tools xsltproc zip zlib1g-dev xattr openjdk-11-jdk jq android-sdk-libsparse-utils python3 python2 repo
     ```
-- Create a new working directory for your Miku UI build and navigate to it:
+- Create a new working directory for your ProjectEverest build and navigate to it:
     ```
-    mkdir miku-treble && cd miku-treble
+    mkdir everest-treble && cd everest-treble
     ```
 - Clone this repo:
     ```
-    git clone https://github.com/xiaoleGun/treble_build_miku -b Udon_v2
+    git clone https://github.com/ozturkmutlu65/treble_build_everest -b qpr3
     ```
 - Finally, start the build script:
     ```
-    bash treble_build_miku/build.sh
+    bash treble_build_everest/build.sh
     ```
 
 ## Credits
 These people have helped this project in some way or another, so they should be the ones who receive all the credit:
-- [Miku-UI](https://github.com/Miku-UI)
+- [ProjectEverest](https://github.com/ProjectEverest)
 - [phhusson](https://github.com/phhusson)
 - [AndyCGYan](https://github.com/AndyCGYan)
 - [ponces](https://github.com/ponces)
